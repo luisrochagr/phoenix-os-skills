@@ -4,7 +4,7 @@ Las skills de contenido del equipo de Phoenix OS, con todo el criterio que const
 
 > **La regla que gobierna todo el paquete: el mecanismo se copia, el contenido nunca.**
 
-Uso interno de Phoenix OS. Mantenido por Luis Rocha.
+Hecho por Luis Rocha para el equipo de Phoenix OS. La foto, el logo y la marca Phoenix OS × Luis Rocha son de uso exclusivo de Phoenix OS.
 
 ---
 
@@ -42,32 +42,26 @@ flowchart LR
 
 Instala **las 7 juntas**: se pasan trabajo entre ellas.
 
-### Opción A — Todo el equipo en Claude (plan Team o Enterprise) · recomendada
-
-Un Owner de la organización conecta este repo como marketplace, y todos reciben las skills y sus actualizaciones:
-
-1. Instala la **Claude GitHub App** en este repositorio (si no, el repo no aparece al conectarlo).
-2. En Claude: **Organization settings → Plugins & skills → Marketplaces → Add plugins → Sync from GitHub**.
-3. Escribe `OWNER/phoenix-os-skills` y confirma. Deja activado **Sync automatically**: cada vez que se suba un cambio con la versión nueva en `plugins/phoenix-os/.claude-plugin/plugin.json`, se actualiza para todos.
-
-El repo puede (y debe) ser privado. [Guía oficial](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization)
-
-### Opción B — Una persona en Claude (web o escritorio)
+### Opción A — En Claude (web o escritorio), una persona
 
 1. Activa la ejecución de código (Settings → Capabilities).
 2. Descarga los `.zip` de la carpeta [`dist/`](dist/).
-3. **Customize → Skills → + → Create skill → Upload a skill**, uno por uno (los 7).
+3. **Customize → Skills → + → Create skill → Upload a skill**, uno por uno (los 7). En planes Team/Enterprise, cada skill se puede **compartir** con el equipo desde el menú ⋯ de la skill.
 
 [Guía oficial](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
 
-### Opción C — Claude Code
+### Opción B — Claude Code
 
 ```bash
-claude plugin marketplace add OWNER/phoenix-os-skills
+claude plugin marketplace add luisrochagr/phoenix-os-skills
 claude plugin install phoenix-os@phoenix-os-skills
 ```
 
-Las skills quedan como `/phoenix-os:radar-referentes`, `/phoenix-os:carrusel-tryhard`, etc. En local hace falta Python 3.10+, `pip install pillow numpy playwright pypdf`, `playwright install chromium` y Node/npm (para las fuentes).
+### Opción C — Todo el equipo en Claude como marketplace (Team o Enterprise)
+
+Claude solo sincroniza marketplaces desde repos **privados o internos**, y este repo es público. Para el equipo: crea una **copia privada** (GitHub → New repository → *Import a repository* con la URL de este repo), instala la **Claude GitHub App** en esa copia y un Owner la conecta en **Organization settings → Plugins & skills → Marketplaces → Add plugins → Sync from GitHub**. Con **Sync automatically**, cada cambio que suba la versión en `plugins/phoenix-os/.claude-plugin/plugin.json` llega a todos. [Guía oficial](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization)
+
+En Claude Code las skills quedan como `/phoenix-os:radar-referentes`, `/phoenix-os:carrusel-tryhard`, etc., y en local hace falta Python 3.10+, `pip install pillow numpy playwright pypdf`, `playwright install chromium` y Node/npm (para las fuentes).
 
 ---
 
@@ -120,7 +114,7 @@ El radar sale siempre con la marca **Phoenix OS × Luis Rocha** (negro, lima `#B
 plugins/phoenix-os/
   .claude-plugin/plugin.json           nombre y VERSIÓN del plugin
   skills/<skill>/SKILL.md              cada skill + references/, scripts/, assets/
-dist/*.zip                             skills empaquetadas para subir a mano (Opción B)
+dist/*.zip                             skills empaquetadas para subir a mano (Opción A)
 herramientas/sincronizar.py            copia archivos compartidos, valida y arma dist/
 docs/                                  imágenes de este README
 REVISION.md                            qué se corrigió en la revisión y qué queda pendiente
