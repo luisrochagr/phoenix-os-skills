@@ -21,6 +21,7 @@ Qué se encontró al juntar las skills, qué se corrigió y qué queda pendiente
 
 | Antes | Ahora |
 |---|---|
+| El input eran el nicho, los @ y el idioma | **Regla: el input es siempre un brief del cliente** con contexto, oferta y avatar (`references/brief-cliente.md`). Sin el mínimo no se abre Instagram. Cada ganador se juzga también por si le habla al avatar; cada idea ataca un dolor del brief y cierra con su CTA; el brief para IA sale lleno con los datos del cliente; el PDF lleva caja "Para quién es" y anexo con el brief |
 | Había que adjuntar logo y foto en cada conversación; si no, salía sin marca | Logo, símbolo P, foto de Luis y fuentes Inter viven en `assets/`. `marca.py check` avisa si falta algo |
 | La tira, el CSS del PDF y el pie se armaban a mano cada vez | `scripts/marca.py` lo hace igual siempre: tira brandeada, CSS, PDF (portada + cuerpo + pie), encabezado de Miro |
 | El puntaje outlier estaba como fragmento de código | `scripts/outlier.py` con esquema de CSV fijo, convierte "1,2 M" / "45.6K" / "12,3 mil", tops, pares A/B, formatos probados y avisos para "Límites" |

@@ -12,7 +12,7 @@ Uso interno de Phoenix OS. Mantenido por Luis Rocha.
 
 | Skill | Qué hace | Se activa cuando pides… |
 |---|---|---|
-| **radar-referentes** | Analiza 3–5 creadores de un nicho: puntaje outlier en código, capturas cuadro por cuadro, formatos probados, qué no copiar e ideas para grabar. Entrega PDF, imagen para Miro y brief para IA **con la marca Phoenix OS × Luis Rocha** | "Hazme un radar de estos @", "qué formatos funcionan en el nicho de…" |
+| **radar-referentes** | Parte **siempre del brief del cliente** (contexto, oferta y avatar) y analiza 3–5 creadores del nicho contra ese brief: puntaje outlier en código, capturas cuadro por cuadro, formatos probados, qué no copiar e ideas para grabar. Entrega PDF, imagen para Miro y brief para IA **con la marca Phoenix OS × Luis Rocha** | "Hazme un radar para {cliente}" + su brief y los @ |
 | **carrusel-tryhard** | Carruseles de nivel alto para cualquier marca. Pregunta el fin del carrusel (para decidir CTA y neuromarketing), el concepto, la marca y las referencias visuales; entrega PNG 1080×1350 + caption | "Hazme un carrusel de…", "una portada para…", "adapta esta referencia" |
 | **adaptador** | **El criterio.** Convierte referencias o ideas en contenido propio con 5 pasos (mecanismo → filtro → traducción → auditoría de verdad → enrutar). Es dueño de la ficha de marca | "Mira este reel, adáptalo", "dame ideas de contenido", "da de alta esta marca" |
 | **creador-de-guiones** | Guiones hablados de 15–60 s que suenan humanos y son objetivos | "Guion para un reel de…", "conviérteme este brief en guion" |
@@ -24,8 +24,9 @@ Uso interno de Phoenix OS. Mantenido por Luis Rocha.
 
 ```mermaid
 flowchart LR
-  R[radar-referentes] -->|brief + formatos probados| A[adaptador]
-  R -->|brief| G[creador-de-guiones]
+  B0[(brief del cliente)] --> R
+  R[radar-referentes] -->|formatos probados| A[adaptador]
+  R -->|brief para IA| G[creador-de-guiones]
   A --> G
   A --> B[guion-broll]
   A --> C[carrusel-tryhard]
@@ -70,6 +71,10 @@ Las skills quedan como `/phoenix-os:radar-referentes`, `/phoenix-os:carrusel-try
 
 ---
 
+## Regla del radar: el input es el brief del cliente
+
+El radar no arranca sin un brief con **contexto breve, oferta y avatar** (dolores con sus palabras), además de los referentes, el idioma y quién graba. Puede ser el formulario de [`references/brief-cliente.md`](plugins/phoenix-os/skills/radar-referentes/references/brief-cliente.md), la transcripción de la llamada o la ficha de marca. Cada idea del reporte ataca un dolor del avatar y cierra con el CTA de la oferta; si no, no entra.
+
 ## Primer uso: la ficha de marca
 
 Todas las skills (menos el radar) trabajan sobre la **ficha de marca** del cliente: voz, avatar, dolores, pruebas verificables, keyword del CTA, prohibiciones y sistema visual.
@@ -83,7 +88,7 @@ Todas las skills (menos el radar) trabajan sobre la **ficha de marca** del clien
 ## Ejemplos
 
 ```text
-Hazme un radar del nicho "venta de Toyota en USA" con @cuenta1 @cuenta2 @cuenta3. El cliente graba en español.
+Hazme un radar para {cliente}. Te paso su brief (contexto, oferta y avatar) y los referentes: @cuenta1 @cuenta2 @cuenta3.
 
 Carrusel para {marca}: quiero leads, que comenten GUÍA. Te adjunto 2 referencias de diseño.
 

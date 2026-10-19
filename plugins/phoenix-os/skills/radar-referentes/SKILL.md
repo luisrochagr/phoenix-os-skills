@@ -1,6 +1,6 @@
 ---
 name: radar-referentes
-description: "Radar de creadores/referentes de Instagram de un nicho: puntaje outlier calculado en código, capturas cuadro por cuadro de los reels ganadores, formatos probados, hooks, qué no copiar e ideas listas para grabar. Entrega PDF, imagen para Miro y brief para IA, todo con la marca Phoenix OS × Luis Rocha. Úsala cuando pidan analizar referentes, competidores o creadores de un nicho, un radar, ver qué formatos funcionan, o sacar ideas de contenido a partir de cuentas de Instagram."
+description: "Radar de creadores/referentes de Instagram de un nicho, siempre a partir del brief del cliente (contexto, oferta y avatar): puntaje outlier calculado en código, capturas cuadro por cuadro de los reels ganadores, formatos probados, hooks, qué no copiar e ideas listas para grabar que atacan los dolores del avatar y cierran con la oferta. Entrega PDF, imagen para Miro y brief para IA, todo con la marca Phoenix OS × Luis Rocha. Úsala cuando pidan analizar referentes, competidores o creadores de un nicho, un radar, ver qué formatos funcionan, o sacar ideas de contenido a partir de cuentas de Instagram."
 ---
 
 # Radar de referentes · Phoenix OS × Luis Rocha
@@ -9,7 +9,9 @@ Convierte una lista de @ de un nicho en ideas que el cliente puede grabar, respa
 
 **Regla que gobierna todo: el mecanismo se copia, el contenido nunca.** El tema, el producto y los números son del cliente.
 
-Al correr la skill: haz solo las preguntas del Paso 0, conecta lo que falte (Paso 1) y después ejecuta todo el proceso sin pedir más permisos que los obligatorios. Crea una lista de tareas con los pasos 2 a 9 y ve marcándolos.
+**Regla de entrada: el input es siempre un brief del cliente.** Contexto breve, **oferta** y **avatar**, además de los referentes. Los referentes se leen contra ese brief: un formato que gana 6x para otro creador no sirve si le habla a un público que el cliente no tiene o si no hay oferta que lo cierre. **Sin brief no se abre Instagram.**
+
+Al correr la skill: consigue el brief (Paso 0), conecta lo que falte (Paso 1) y después ejecuta todo el proceso sin pedir más permisos que los obligatorios. Crea una lista de tareas con los pasos 2 a 9 y ve marcándolos.
 
 **Archivos de esta skill** (rutas relativas a su carpeta):
 
@@ -18,6 +20,7 @@ Al correr la skill: haz solo las preguntas del Paso 0, conecta lo que falte (Pas
 | `scripts/marca.py` | Kit de marca: tiras brandeadas, CSS, PDF con portada y pie, encabezado de Miro |
 | `scripts/outlier.py` | Puntaje outlier, tops, pares A/B y formatos, desde un CSV |
 | `assets/` | Logo Phoenix OS, mini logo P, foto de Luis y fuentes Inter (ver `assets/README.md`) |
+| `references/brief-cliente.md` | **Input obligatorio:** campos del brief (contexto, oferta, avatar), mínimo para arrancar y plantilla |
 | `references/captura-instagram.md` | Cómo sacar views, datos, perfiles y tiras de 4 cuadros con Chrome |
 | `references/entregables.md` | Especificación exacta del PDF, la imagen de Miro y el brief |
 
@@ -25,13 +28,18 @@ Al correr la skill: haz solo las preguntas del Paso 0, conecta lo que falte (Pas
 
 ---
 
-## Paso 0. Preguntas (una sola vez, con AskUserQuestion)
+## Paso 0. El brief del cliente (obligatorio, antes de todo)
 
-Pregunta solo lo que no esté ya en la conversación:
+Lee `references/brief-cliente.md`. El brief puede venir como formulario llenado, documento o transcripción de la llamada con el cliente, o la ficha de marca (`marca-{cliente}.md`). Pásalo al formato de la plantilla y guárdalo como **`datos/brief.md`**.
 
-1. **Nicho y cliente** (ej.: venta de Toyota en USA, cliente de Phoenix OS).
-2. **3 a 5 @ de referentes** (y reels puntuales que quieran replicar, si hay).
-3. **Idioma** en que graba el cliente.
+**Mínimo para arrancar** (si falta, se pide en un solo mensaje antes del Paso 1):
+1. **Contexto:** cliente, qué hace, dónde opera, en qué momento está y objetivo del radar.
+2. **Oferta:** qué vende, CTA y canal (palabra clave, DM, WhatsApp, link), pruebas que puede demostrar.
+3. **Avatar:** quién compra y al menos 3 dolores con sus palabras (ideal también objeciones y deseo).
+4. **Referentes:** 3 a 5 @ (y reels puntuales que quieran replicar, si hay).
+5. **Idioma** y **quién graba** (dueño a cámara, vendedor, solo voz en off).
+
+Usa AskUserQuestion solo para lo que tenga opciones (idioma, quién graba); lo demás se pide como texto. Lo que el cliente no sepa queda `POR CONFIRMAR` en el brief y va a "Límites"; **nunca se completa con algo plausible**.
 
 **No preguntes por la marca:** el logo, la foto de Luis y las fuentes ya vienen en `assets/`. Corre `python scripts/marca.py check` al empezar. Si falta algún activo, el kit usa la marca de texto "Phoenix OS × Luis Rocha" y tú lo avisas en una línea; si el usuario adjunta el archivo en la conversación, cópialo a una carpeta de trabajo y úsalo (la carpeta de la skill puede ser de solo lectura).
 
@@ -92,17 +100,19 @@ Con las tiras vistas, llena las columnas `formato` (nombre corto y consistente: 
 
 ## Paso 6. Análisis
 
-De cada ganador: hook exacto, tipo de hook, formato, escenario, dónde está el remate, **edición** (plano, cámara, texto fijo, subtítulos, gráficos, duración) y por qué lo suben (alcance, confianza, autoridad, leads).
+De cada ganador: hook exacto, tipo de hook, formato, escenario, dónde está el remate, **edición** (plano, cámara, texto fijo, subtítulos, gráficos, duración), por qué lo suben (alcance, confianza, autoridad, leads) y **si le habla al avatar del brief** (mismo comprador, mismo dolor, mismo nivel de precio). Un ganador que le habla a otro público se reporta en formatos con la nota "no es nuestro público" y no se convierte en idea.
 
 - **Formato probado:** el mismo mecanismo con 3x o más en 2 creadores.
 - **A probar:** un solo creador con 2 o más ganadores del mismo mecanismo.
 - **Mira los del mismo formato que fallaron:** dicen qué variable hace ganar (ej.: el formato "cliente llega al dealer" gana cuando el cliente trae un conflicto de dinero; sin eso queda en 0,7x).
-- **Qué no copiar:** lo que se repite en los reels de 0,5x o menos (patrocinados, salirse del nicho, hablarle a colegas en vez de a compradores, tandas sin hook ni caption).
+- **Qué no copiar:** lo que se repite en los reels de 0,5x o menos (patrocinados, salirse del nicho, hablarle a colegas en vez de a compradores, tandas sin hook ni caption) y lo que choca con la oferta, el avatar o lo prohibido del brief.
 - Nada de cifras que el cliente no pueda probar.
 
 ## Paso 7. Ideas aplicables al nicho (3 a 5)
 
-Cada idea es una ficha con: título, formato de origen y estado, **hook exacto** + nota de qué se ve en el primer segundo, **métrica del referente** que la respalda (x, views y link), por qué funciona, condición, estructura por tiempos (0-2 s, desarrollo, remate, cierre), **edición** (plano, cámara, texto en pantalla, subtítulos, gráficos, duración según los referentes), caption que termina en pregunta, CTA (una sola acción), **qué medir** (meta: 3x la mediana del propio cliente; juzgar una serie después de 3 episodios), variantes siguientes y la tira de referencia.
+Cada idea sale del cruce **formato ganador × dolor del avatar × oferta del cliente**. Si una idea no ataca un dolor del brief, no cierra con su CTA o necesita una prueba que el cliente no tiene, no entra.
+
+Cada idea es una ficha con: título, formato de origen y estado, **dolor del avatar que ataca** (con sus palabras), **cómo conecta con la oferta**, **hook exacto** + nota de qué se ve en el primer segundo, **métrica del referente** que la respalda (x, views y link), por qué funciona, condición, estructura por tiempos (0-2 s, desarrollo, remate, cierre), **edición** (plano, cámara, texto en pantalla, subtítulos, gráficos, duración según los referentes), caption que termina en pregunta, CTA (una sola acción: el **CTA y canal del brief**), **qué medir** (meta: 3x la mediana del propio cliente; juzgar una serie después de 3 episodios), variantes siguientes y la tira de referencia.
 
 Regla de hook para todas: el hook invita o pregunta y deja algo vacío en pantalla; la respuesta llega al final.
 
@@ -123,24 +133,26 @@ La tira detecta sola el área útil de la captura (lo que no es el fondo `#0C101
 
 Especificación completa en `references/entregables.md`. En corto:
 
-1. **PDF** `Radar-referentes-{nicho}.pdf`: HTML con `marca.py css` y `marca.py pdf` (portada a sangre + cuerpo A4 con pie de marca). **Lo aplicable primero**: portada → ideas para grabar → una ficha por idea en una sola página → lección de hook (A/B) → formatos que se repiten → qué no copiar → una página por referente → método y datos → cómo usar el brief.
+1. **PDF** `Radar-referentes-{nicho}.pdf`: HTML con `marca.py css` y `marca.py pdf` (portada a sangre + cuerpo A4 con pie de marca). **Lo aplicable primero**: portada → ideas para grabar (con caja "Para quién es": cliente · oferta · avatar) → una ficha por idea en una sola página → lección de hook (A/B) → formatos que se repiten → qué no copiar → una página por referente → método y datos → brief del cliente (anexo) → cómo usar el brief para IA.
 2. **Imagen para Miro** `Radar-{nicho}-Miro.png`, 3600 px de ancho, con `marca.encabezado()` arriba y una columna por referente.
-3. **Brief para IA** `brief-guiones-{nicho}.md`, para pegar en cualquier IA, con un guion de ejemplo completo.
+3. **Brief para IA** `brief-guiones-{nicho}.md`, para pegar en cualquier IA: los datos del cliente van **llenos desde `datos/brief.md`** (solo lo pendiente queda `POR CONFIRMAR`), con un guion de ejemplo completo escrito para ese avatar y esa oferta.
 
 **Revisión antes de entregar (obligatoria):**
 - Cada número del PDF, la imagen y el brief coincide con `reels_puntuados.csv` (búscalos uno por uno; si no coincide, se corrige el entregable, no el CSV).
 - Abre el PDF renderizado (miniaturas de todas las páginas): ninguna ficha se pasa de página, ninguna tira falta, ningún texto se corta.
 - Abre la imagen de Miro completa y un recorte ampliado de una columna.
+- Cada idea nombra un dolor que está en `datos/brief.md` y cierra con el CTA del brief; ninguna usa una prueba que no esté en el brief.
 - `marca.py check` pasó, o avisaste que salió con marca de texto.
 
 Entrega los tres con `SendUserFile` y cierra con 3 hallazgos en pocas líneas. Si el usuario quiere editarlo en equipo, ofrece el mismo contenido como documento editable.
 
 ## Límites que siempre se reportan
 
-Tamaño de la muestra por creador, si hubo o no sesión de Instagram, que el audio no está transcrito, que los fijados son de otra época, que los reels de menos de 5 días todavía suman views y los avisos de `resumen.md`.
+Los campos del brief que quedaron `POR CONFIRMAR`, tamaño de la muestra por creador, si hubo o no sesión de Instagram, que el audio no está transcrito, que los fijados son de otra época, que los reels de menos de 5 días todavía suman views y los avisos de `resumen.md`.
 
 ## Después
 
-- Para escribir los guiones completos, pasa el brief a la skill `creador-de-guiones` (reels hablados) o `guion-broll` (voz en off sin cara).
+- Para escribir los guiones completos, pasa el brief para IA a la skill `creador-de-guiones` (reels hablados) o `guion-broll` (voz en off sin cara).
+- Si el cliente todavía no tiene ficha de marca, `datos/brief.md` es la base para crearla con `adaptador`.
 - Para meter las ideas en un calendario, usa `calendario-contenido` (el radar es su Paso 3).
 - Para adaptar un reel puntual a una marca, usa `adaptador`.
