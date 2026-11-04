@@ -19,6 +19,7 @@ Hecho por Luis Rocha para el equipo de Phoenix OS. La foto, el logo y la marca P
 | **guion-broll** | Guiones de B-roll con voz en off: lo que se dice, lo que se ve y la lista de planos | "Video de producto sin cara", "B-roll con voz en off" |
 | **historias** | Secuencias de Stories 9:16 con stickers, safe zones y PNG | "Hazme unas historias de…" |
 | **calendario-contenido** | Calendario del mes con método: 10 dolores → pilares → formatos ganadores (radar) → semana tipo | "Arma el calendario de…", "ordena lo que ya grabó el cliente" |
+| **tryhard-edit** | Edita reels talking-head al estilo Tryhard: cortes sin huecos, gancho disruptivo en 2 s, tracking de cara, títulos detrás del sujeto, motion graphics, transiciones con blur y mucho SFX, en la zona segura de Reels | "Hazle un tryhard edit a este reel", "edita este bruto" |
 
 ### Cómo se conectan
 
@@ -40,13 +41,13 @@ flowchart LR
 
 ## Instalación
 
-Instala **las 7 juntas**: se pasan trabajo entre ellas.
+Instala **las 8 juntas**: se pasan trabajo entre ellas.
 
 ### Opción A — En Claude (web o escritorio), una persona
 
 1. Activa la ejecución de código (Settings → Capabilities).
 2. Descarga los `.zip` de la carpeta [`dist/`](dist/).
-3. **Customize → Skills → + → Create skill → Upload a skill**, uno por uno (los 7). En planes Team/Enterprise, cada skill se puede **compartir** con el equipo desde el menú ⋯ de la skill.
+3. **Customize → Skills → + → Create skill → Upload a skill**, uno por uno (los 8). En planes Team/Enterprise, cada skill se puede **compartir** con el equipo desde el menú ⋯ de la skill.
 
 [Guía oficial](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
 
